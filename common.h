@@ -5,7 +5,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#define MESSAGE_SIZE (1<<17)
+#define MESSAGE_SIZE (1<<16)   // 32 KB per tasklet
+#define NR_TASKLETS 16        
 
 //SHA-256 functions
 #define ROTLEFT(a,b) (((a) << (b)) | ((a) >> (32-(b))))
@@ -45,7 +46,6 @@ void strcopia(char* dst,char* src, const int initLength, const int n_bytes)
 
 void SHA256_t(const char* msgBlock, uint32_t* dst, const uint32_t paddedLength, int initH)
 {
-    //Il blocco da "cifrare" è di esattamente 512 bits (64 bytes)
     int i,t;
     uint32_t a,b,c,d,e,f,g,h,T1,T2;
     uint32_t tmp[4];
@@ -82,7 +82,7 @@ void SHA256_t(const char* msgBlock, uint32_t* dst, const uint32_t paddedLength, 
         h=H[7];
 		
 	
-        //Computin the extended words W[i]
+        //Computing the extended words W[i]
         for(t=0;t<64;++t)
         {
             if(t<16)
@@ -114,7 +114,7 @@ void SHA256_t(const char* msgBlock, uint32_t* dst, const uint32_t paddedLength, 
             a = T1 + T2;
         }
 
-        //Questi valori vanno aggiornati solo una volta per "blocco" da 512 bit
+        // Values updated just one for each block of 512 bit
         H[0] = a + H[0];
         H[1] = b + H[1];
         H[2] = c + H[2];
@@ -126,12 +126,11 @@ void SHA256_t(const char* msgBlock, uint32_t* dst, const uint32_t paddedLength, 
     }
 
 	for(int k=0;k<8;++k){ dst[k] = H[k]; }
-	//printf("%08X%08X%08X%08X%08X%08X%08X%08X\n",H[0],H[1],H[2],H[3],H[4],H[5],H[6],H[7]);	
 }
 
 uint32_t padding(char* str,uint64_t length)
 {
-    int i,k,paddingBytes; //paddingBytes tiene conto anche del primo byte posto a 0x80
+    int i,k,paddingBytes; //paddingBytes takes into account also the first byte "0x80"
     char tmp[MESSAGE_SIZE];
     paddingBytes = 64 - (length % 64);
 
