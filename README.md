@@ -28,10 +28,10 @@ Run the compiled file
 It is possible to directly run the script `run_ranks_scaling_sha256.sh` to execute the program multiple times increasing the number of ranks by 1 at every iteration. This will produce a `rank_scaling_sha256.csv` file that can be used by the plotting script described below.
 
 ## Plotting
-Once `rank_scaling_sha256.csv` is generated, it is possible to generate the plot using the python script `plot_ranks_scaling_sha256.py`
+Once `rank_scaling_sha256.csv` is generated, it is possible to generate the plot using the python script `plot_ranks_scaling_SHA.py`
 
 ```
-python plot_ranks_scaling_sha256.py
+python plot_ranks_scaling_SHA.py
 ```
 
 ![](Images/rank_scaling_complete.png "Ranks scaling")
@@ -42,7 +42,7 @@ python plot_ranks_scaling_sha256.py
 To simplify the plot, it is possible to generate a reduced version in which only certain values are plotted (with number of ranks equal to 1, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40) using the following flag:
 
 ```
-python plot_ranks_scaling_sha256.py --filter-by-ranks
+python plot_ranks_scaling_SHA.py --filter-by-ranks
 ```
 
 ![](Images/rank_scaling.png "Ranks scaling")
