@@ -45,6 +45,6 @@ To simplify the plot, it is possible to generate a reduced version in which only
 python plot_ranks_scaling_SHA.py --filter-by-ranks
 ```
 
-![](Images/rank_scaling.png "Ranks scaling")
+![](Images/rank_scaling_filt.png "Ranks scaling")
 
-![](Images/rank_scaling_no_SHAhost.png "Ranks scaling")
+![](Images/rank_scaling_no_SHAhost_filt.png "Ranks scaling")
