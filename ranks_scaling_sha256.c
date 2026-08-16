@@ -200,7 +200,8 @@ int main(void) {
             DPU_ASSERT(dpu_prepare_xfer(dpu_set, buffer_plaintext + dpu_buffer_offset));
             dpu_buffer_offset += BUFFER_SIZE_DPU;
         }
-        DPU_ASSERT(dpu_push_xfer(rank, DPU_XFER_TO_DPU, "msgs", 0, BUFFER_SIZE_DPU, DPU_XFER_DEFAULT));
+        //DPU_ASSERT(dpu_push_xfer(rank, DPU_XFER_TO_DPU, "msgs", 0, BUFFER_SIZE_DPU, DPU_XFER_DEFAULT));
+        DPU_ASSERT(dpu_push_xfer(rank, DPU_XFER_TO_DPU, "msgs", 0, BUFFER_SIZE_DPU, DPU_XFER_ASYNC));
         DPU_ASSERT(dpu_launch(rank, DPU_ASYNCHRONOUS));
     }
 
